@@ -2,8 +2,12 @@ console.log("Ejecutando JS...");
 
 //-- Obtener el objeto canvas
 const canvas = document.getElementById("canvas");
-//-- Variable para la posicion de la bola (en x)
-let bola_x = canvas.height/4;
+//-- Variables para la posicion de la bola (en x e y)
+let bola_x = canvas.width/6;
+let bola_y = canvas.height/2;
+//-- Variables para la velocidad de la bola (en x e y)
+let bola_vx = 0;
+let bola_vy = 0;
 
 //-- Sus dimensiones las hemos fijado en el fichero
 //-- HTML. Las imprimimos en la consola
@@ -16,16 +20,12 @@ const ctx = canvas.getContext("2d");
 function draw() {
         //----- Dibujar la Bola
         ctx.beginPath();
-        //----- Propiedades pelota
-        //----- Posición de la bola respecto al canvas
-        var X = canvas.width/6;
-        var Y = canvas.height/2;
-        //----- Tamaño pelota
+        //----- Propiedades pelota (Posición, Tamaño, color y borde)
         var r = 15;
         ctx.strokeStyle = "#006400";
         ctx.fillStyle = "#6ab150";
         ctx.lineWidth = 5;
-        ctx.arc(bola_x,Y,r,0,2*Math.PI);
+        ctx.arc(bola_x,bola_y,r,0,2*Math.PI);
         ctx.fill();
         ctx.stroke();
 
@@ -81,7 +81,29 @@ function draw() {
 //---- Bucle principal de la animación
 function animacion() {
       //-- Actualizar las posiciones de los objetos móviles
-      //-- De momento no lo estamos haciendo
+      bola_x += bola_vx;
+      bola_y += bola_vy;
+
+      //-- Comprobar si la bola ha alcanzado los límites del canvas
+      //-- Si es así, se cambia de signo la velocidad, para
+      // que "rebote" y vaya en el sentido opuesto
+      if (bola_x >= (canvas.width - 10)) {
+        //-- Hay colisión. Cambiar el signo de la bola
+        bola_vx = bola_vx * -1;
+      }
+      if (bola_x < 10) {
+        //-- Hay colisión. Cambiar el signo de la bola
+        bola_vx = bola_vx * -1;
+      }
+
+      if (bola_y >= (canvas.height - 10)) {
+        //-- Hay colisión. Cambiar el signo de la bola
+        bola_vy = bola_vy * -1;
+      }
+      if (bola_y < 10) {
+        //-- Hay colisión. Cambiar el signo de la bola
+      bola_vy = bola_vy * -1;
+      }
 
       //-- Borrar la pantalla
       ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -100,13 +122,24 @@ setInterval(()=>{
   animacion();
 },16);
 
-//-- Obtener el boton de dar un "paso"
-const paso = document.getElementById("paso");
+//-- Obtener botones del html
+const sacar = document.getElementById("sacar");
+const reset = document.getElementById("reset");
 
-//-- Botón de dar un Paso: Cada vez que lo apretamos
-//-- la bola avanza 5 píxeles
-paso.onclick = () => {
-  //-- Incrementar la posicion x de la bola
-  bola_x += 5;
-  console.log("Paso!");
-}
+
+  sacar.onclick = () => {
+    //-- Incrementar la posicion x de la bola
+    bola_x = canvas.width/6;
+    bola_vx = 6;
+    bola_vy = 6;
+    console.log("Saque!");
+  }
+
+  reset.onclick = () => {
+    //-- Incrementar la posicion x de la bola
+    bola_x = canvas.width/6;
+    //bola_y = canvas.height/4;
+    bola_vx = 0;
+    bola_vy = 0;
+    console.log("Reset!");
+  }
