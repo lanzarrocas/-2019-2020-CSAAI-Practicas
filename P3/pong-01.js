@@ -8,6 +8,15 @@ let bola_y = canvas.height/2;
 //-- Variables para la velocidad de la bola (en x e y)
 let bola_vx = 0;
 let bola_vy = 0;
+// -- Variables PAD1
+let pad1_x = canvas.width/10;
+let pad1_y = canvas.height/2.5;
+let pad1_v = 0;  //-- Velocidad
+
+// -- Variables PAD2
+let pad2_x = canvas.width/1.1;;
+let pad2_y = canvas.height/2.5;
+let pad2_v = 0;  //-- Velocidad
 
 //-- Sus dimensiones las hemos fijado en el fichero
 //-- HTML. Las imprimimos en la consola
@@ -33,12 +42,10 @@ function draw() {
         ctx.beginPath();
         //----- Propiedades PAD1
         //----- Posición del PAD1 respecto al canvas
-        var X = canvas.width/10;
-        var Y = canvas.height/2.5;
         ctx.strokeStyle = "#006400";
         ctx.fillStyle = "#6ab150";
         ctx.lineWidth = 5;
-        ctx.rect(X, Y, 10, 100);
+        ctx.rect(pad1_x, pad1_y, 10, 100);
         ctx.fill();
         ctx.stroke();
 
@@ -46,12 +53,10 @@ function draw() {
         ctx.beginPath();
         //----- Propiedades PAD2
         //----- Posición del PAD2 respecto al canvas
-        var X = canvas.width/1.1;
-        var Y = canvas.height/2.5;
         ctx.strokeStyle = "#006400";
         ctx.fillStyle = "#6ab150";
         ctx.lineWidth = 5;
-        ctx.rect(X, Y, 10, 100);
+        ctx.rect(pad2_x, pad2_y, 10, 100);
         ctx.fill();
         ctx.stroke();
 
@@ -83,10 +88,19 @@ function animacion() {
       //-- Actualizar las posiciones de los objetos móviles
       bola_x += bola_vx;
       bola_y += bola_vy;
+      pad1_y += pad1_v;
+      pad2_y += pad2_v;
 
       //-- Comprobar si la bola ha alcanzado los límites del canvas
       //-- Si es así, se cambia de signo la velocidad, para
       // que "rebote" y vaya en el sentido opuesto
+
+      //-- Comprobar si hay colisión con la raqueta izquierda
+      if (bola_x >= pad1_x && bola_x <=(pad1_x+10) &&
+          bola_y >= pad1_y && bola_y <=(pad1_y+100)) {
+        bola_vx = bola_vx * -1;
+      }
+
       if (bola_x >= (canvas.width - 10)) {
         //-- Hay colisión. Cambiar el signo de la bola
         bola_vx = bola_vx * -1;
@@ -127,19 +141,67 @@ const sacar = document.getElementById("sacar");
 const reset = document.getElementById("reset");
 
 
+  //-- Sacar con botón sacar
   sacar.onclick = () => {
     //-- Incrementar la posicion x de la bola
     bola_x = canvas.width/6;
+    bola_y = canvas.height/2;
     bola_vx = 6;
     bola_vy = 6;
     console.log("Saque!");
   }
 
-  reset.onclick = () => {
-    //-- Incrementar la posicion x de la bola
+
+  window.
+
+  //-- Sacar con tecla "space"
+  window.onkeyup = (e) => {
+      switch (e.key) {
+        case " ":
+        bola_x = canvas.width/6;
+        bola_y = canvas.height/2;
+        bola_vx = 6;
+        bola_vy = 6;
+          break;
+        case "r":
+        bola_x = canvas.width/6;
+        bola_y = canvas.height/2;
+        bola_vx = 0;
+        bola_vy = 0;
+        case "a":
+          pad1_v = 0;
+          break;
+        case "q":
+          pad1_v = 0;
+          break;
+          break;
+        default:
+      }
+  }
+
+  window.onkeydown = (e) => {
+
+  switch (e.key) {
+    case "a":
+      pad1_v = 3;
+      break;
+    case "q":
+      pad1_v = -3;
+      break;
+  }
+}
+
+    //-- Reset con boton
+    reset.onclick = () => {
+    //-- Origen bolas
     bola_x = canvas.width/6;
-    //bola_y = canvas.height/4;
+    bola_y = canvas.height/2;
+
     bola_vx = 0;
     bola_vy = 0;
+
+
     console.log("Reset!");
   }
+
+    //-- Reset con tecla "r"
