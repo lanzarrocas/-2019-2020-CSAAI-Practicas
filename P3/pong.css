@@ -1,0 +1,14 @@
+/* Fondo de la página */
+body {
+    background-color: black;
+}
+
+h1 {
+    background-color: white;
+}
+
+
+/* Estilo para el canvas: Negro */
+#canvas {
+  background-color: lightblue;
+}
