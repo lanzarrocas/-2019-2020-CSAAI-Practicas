@@ -4,11 +4,11 @@ class Bola {
     this.ctx = ctx;
 
     //-- Constante: Tamaño de la bola
-    this.size = 5;
+    this.size = 15;
 
     //-- Contante: Posicion inicial de la bola
     this.x_ini = canvas.width/6;
-    this.y_ini = canvas.width/2;
+    this.y_ini = canvas.height/2;
     //-- Posicion generica de la bola
     this.x = 0;
     this.y = 0;
@@ -26,27 +26,32 @@ class Bola {
     this.init();
   }
 
-  draw() {
+    draw() {
 
-    //----- Dibujar la Bola
-    this.ctx.beginPath();
-    //----- Propiedades pelota (Posición, Tamaño, color y borde)
-    this.ctx.strokeStyle = "#006400";
-    this.ctx.fillStyle = "#6ab150";
-    this.ctx.lineWidth = 5;
-    this.ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
-    this.ctx.fill();
-    this.ctx.stroke();
-  }
+      //----- Dibujar la Bola
+      this.ctx.beginPath();
+      //----- Propiedades pelota (Posición, Tamaño, color y borde)
+      this.ctx.strokeStyle = "#006400";
+      this.ctx.fillStyle = "#6ab150";
+      this.ctx.lineWidth = 5;
+      this.ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
+      this.ctx.fill();
+      this.ctx.stroke();
+    }
 
-  init() {
-    //-- Inicializa la bola: A su posicion inicial
-    this.x = this.x_ini;
-    this.y = this.y_ini;
-  }
+    init() {
+      //-- Inicializa la bola: A su posicion inicial
+      this.x = this.x_ini;
+      this.y = this.y_ini;
+    }
 
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-  }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+
+    stop() {
+      this.vx = 0;
+      this.vy = 0;
+    }
 }
