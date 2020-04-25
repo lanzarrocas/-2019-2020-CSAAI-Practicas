@@ -25,19 +25,60 @@ console.log(`canvas: Anchura: ${canvas.width}, Altura: ${canvas.height}`);
 //-- Obtener el contexto para pintar en el canvas
 const ctx = canvas.getContext("2d");
 
+//-- Objeto: Bola
+const bola = {
+
+  //-- Constante: Tamaño de la bola
+  size : 15,
+
+  //-- Contante: Posicion inicial de la bola
+  x_ini : canvas.width/6,
+  y_ini : canvas.height/2,
+  //-- Posicion generica de la bola
+  x : 0,
+  y : 0,
+
+  //-- Velocidad inicial de la bola
+  vx_ini : 6,
+  vy_ini : 3,
+
+  //-- Velocidad genérica de la bola
+  //-- Inicialmente a cero
+  vx : 0,
+  vy : 0,
+}
+
+
+function bola_draw()
+{
+  //----- Dibujar la Bola
+  ctx.beginPath();
+  //----- Propiedades pelota (Posición, Tamaño, color y borde)
+  ctx.strokeStyle = "#006400";
+  ctx.fillStyle = "#6ab150";
+  ctx.lineWidth = 5;
+  ctx.arc(bola.x,bola.y,bola.size,0,2*Math.PI);
+  ctx.fill();
+  ctx.stroke();
+}
+
+function bola_init()
+{
+  //-- Inicializa la bola: A su posicion inicial
+  bola.x = bola.x_ini;
+  bola.y = bola.y_ini;
+}
+
+function bola_update()
+{
+  bola.x += bola.vx;
+  bola.y += bola.vy;
+}
+
 //-- Pintar todos los objetos en el canvas
 function draw() {
-        //----- Dibujar la Bola
-        ctx.beginPath();
-        //----- Propiedades pelota (Posición, Tamaño, color y borde)
-        var r = 15;
-        ctx.strokeStyle = "#006400";
-        ctx.fillStyle = "#6ab150";
-        ctx.lineWidth = 5;
-        ctx.arc(bola_x,bola_y,r,0,2*Math.PI);
-        ctx.fill();
-        ctx.stroke();
 
+        bola_draw()
         //----- Dibujar PAD1
         ctx.beginPath();
         //----- Propiedades PAD1
@@ -86,8 +127,10 @@ function draw() {
 //---- Bucle principal de la animación
 function animacion() {
       //-- Actualizar las posiciones de los objetos móviles
-      bola_x += bola_vx;
-      bola_y += bola_vy;
+      bola_update()
+      console.log("bola.x");
+      console.log(bola.x);
+      bola.y += bola.vy;
       pad1_y += pad1_v;
       pad2_y += pad2_v;
 
@@ -96,27 +139,27 @@ function animacion() {
       // que "rebote" y vaya en el sentido opuesto
 
       //-- Comprobar si hay colisión con la raqueta izquierda
-      if (bola_x >= pad1_x && bola_x <=(pad1_x+10) &&
-          bola_y >= pad1_y && bola_y <=(pad1_y+100)) {
-        bola_vx = bola_vx * -1;
+      if (bola.x >= pad1_x && bola.x <=(pad1_x+10) &&
+          bola.y >= pad1_y && bola.y <=(pad1_y+100)) {
+        bola.vx = bola.vx * -1;
       }
 
-      if (bola_x >= (canvas.width - 10)) {
+      if (bola.x >= (canvas.width - 10)) {
         //-- Hay colisión. Cambiar el signo de la bola
-        bola_vx = bola_vx * -1;
+        bola.vx = bola.vx * -1;
       }
-      if (bola_x < 10) {
+      if (bola.x < 10) {
         //-- Hay colisión. Cambiar el signo de la bola
-        bola_vx = bola_vx * -1;
+        bola.vx = bola.vx * -1;
       }
 
-      if (bola_y >= (canvas.height - 10)) {
+      if (bola.y >= (canvas.height - 10)) {
         //-- Hay colisión. Cambiar el signo de la bola
-        bola_vy = bola_vy * -1;
+        bola.vy = bola.vy * -1;
       }
-      if (bola_y < 10) {
+      if (bola.y < 10) {
         //-- Hay colisión. Cambiar el signo de la bola
-      bola_vy = bola_vy * -1;
+      bola.vy = bola.vy * -1;
       }
 
       //-- Borrar la pantalla
@@ -131,6 +174,9 @@ function animacion() {
       console.log("Frame!");
     }
 
+    //-- Inicializa la bola: A su posicion inicial
+    bola_init()
+
 //-- Arrancar la animación
 setInterval(()=>{
   animacion();
@@ -144,30 +190,26 @@ const reset = document.getElementById("reset");
   //-- Sacar con botón sacar
   sacar.onclick = () => {
     //-- Incrementar la posicion x de la bola
-    bola_x = canvas.width/6;
-    bola_y = canvas.height/2;
-    bola_vx = 6;
-    bola_vy = 6;
+    bola.x = canvas.width/6;
+    bola.y = canvas.height/2;
+    bola.vx = 6;
+    bola.vy = 6;
     console.log("Saque!");
   }
 
-
-  window.
 
   //-- Sacar con tecla "space"
   window.onkeyup = (e) => {
       switch (e.key) {
         case " ":
-        bola_x = canvas.width/6;
-        bola_y = canvas.height/2;
-        bola_vx = 6;
-        bola_vy = 6;
+        bola_init()
+        bola.vx = bola.vx_ini;
+        bola.vy = bola.vy_ini;
           break;
         case "r":
-        bola_x = canvas.width/6;
-        bola_y = canvas.height/2;
-        bola_vx = 0;
-        bola_vy = 0;
+        bola_init()
+        bola.vx = 0;
+        bola.vy = 0;
         case "a":
           pad1_v = 0;
           break;
