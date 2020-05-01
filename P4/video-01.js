@@ -38,10 +38,12 @@ const play3 = document.getElementById("play3")
 const stop3 = document.getElementById("stop3")
 
 
+
 //-- Función de retrollamada del botón de ver
 play1.onclick = () => {
   console.log("Click!");
   mainv.src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente1.mp4"
+  v1.style = "border: 10px solid #00FF00";
   mainv.play();
 };
 
