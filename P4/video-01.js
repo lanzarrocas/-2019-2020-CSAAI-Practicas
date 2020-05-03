@@ -37,15 +37,15 @@ const stop2 = document.getElementById("stop2")
 const play3 = document.getElementById("play3")
 const stop3 = document.getElementById("stop3")
 
+function main() {
+  video.style = "border: 10px solid #00FF00";
+  mainv.src = video.src;
+}
+
 
 
 //-- Función de retrollamada del botón de ver
-play1.onclick = () => {
-  console.log("Click!");
-  mainv.src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente1.mp4"
-  v1.style = "border: 10px solid #00FF00";
-  mainv.play();
-};
+
 
 //-- Funcion de retrollamada del boton de parar
 stop1.onclick = () => {
@@ -56,7 +56,7 @@ stop1.onclick = () => {
   mainv.src=null;
 }
 
-play2.onclick = () => {
+v2.onclick = () => {
   console.log("Click!");
   mainv.src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente2.mp4"
   mainv.play();
@@ -71,7 +71,7 @@ stop2.onclick = () => {
   mainv.src=null;
 }
 
-play3.onclick = () => {
+v3.onclick = () => {
   console.log("Click!");
   mainv.src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente3.mp4"
   mainv.play();
