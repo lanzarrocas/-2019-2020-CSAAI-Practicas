@@ -10,14 +10,11 @@ const v3 = document.getElementById('v3')
 mainv.width=600;  //-- Tamaño de la pantalla de video main
 mainv.height=300;
 
-v1.width=200;  //-- Tamaño de la pantalla de video v1
-v1.height=100;
-
-v2.width=300;  //-- Tamaño de la pantalla de video v2
-v2.height=100;
-
-v3.width=300;  //-- Tamaño de la pantalla de video v3
-v3.height=100;
+videos = document.getElementsByClassName("v");
+for (var i = 0; i < videos.length; i++) {
+  videos[i].width = 200;
+  videos[i].height = 100;
+}
 
 
 function main (video) {
@@ -38,9 +35,8 @@ function main (video) {
         v2.style = "border: 10px solid black; width: 22.5%";
       break;
     default:
-
-  }
-  mainv.src = video.src;
-  main.currentTime = video.currentTime;
-  mainv.play();
+    }
+    mainv.src = video.src;
+    main.currentTime = video.currentTime;
+    mainv.play();
 }
