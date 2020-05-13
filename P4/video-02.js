@@ -12,10 +12,10 @@ for (var i = 0; i < videos.length; i++) {
   videos[i].height = 100;
 }
 
-
 function main (video) {
-
   for (var i = 0; i < videos.length; i++) {
+    videos[i].play();
+    videos[i].muted=true;
     if (video.id == videos[i].id) {
       video.style = "border: 10px solid #00FF00; width: 22.5%";
     } else {
@@ -25,8 +25,5 @@ function main (video) {
     mainv.src = video.src;
     mainv.currentTime = video.currentTime;
     mainv.play();
-    for (var i = 0; i < videos.length; i++) {
-      videos[i].play();
-      videos[i].muted=true;
-    }
+
   }
