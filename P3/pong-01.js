@@ -1,5 +1,6 @@
 console.log("Ejecutando JS...");
 
+
 //-- Obtener el objeto canvas
 const canvas = document.getElementById("canvas");
 
@@ -25,11 +26,40 @@ pad2.init();
 score1 = 0;
 score2 = 0;
 
+//-- Obtener Sonidos
+const pad_sound = new Audio("pad.mp3");
+const wall_sound = new Audio("wall.mp3");
+const goal_sound = new Audio("gol.mp3");
 
+
+//-- Estados del juego
+const ESTADO = {
+  INIT: 0,
+  SAQUE: 1,
+  JUGANDO: 2,
+}
+
+//-- Variable de estado
+//-- Arrancamos desde el estado inicial
+let estado = ESTADO.INIT;
+
+
+// -- Sonido de gol
+ //function goal () {
+//  goal_sound.currentTime = 0;
+//  goal_sound.play();
+//  bola.init()
+//  pad1.init()
+//  pad2.init()
+//  bola.stop()  }
+//
 //-- Pintar todos los objetos en el canvas
 function draw() {
+          //-- Dibujar bola solo en el estado de jugando
 
-        bola.draw()
+        bola.draw();
+
+
         pad1.draw()
         pad2.draw()
 
@@ -53,20 +83,23 @@ function draw() {
         ctx.fillStyle = "white";
         ctx.fillText(score1, canvas.width/3, 80);
         ctx.fillText(score2, canvas.width/(9/5), 80);
+
+
 }
 
 //---- Bucle principal de la animación
 function animacion() {
 
-
         // - ACTUALIZAR marcador
         if (bola.x < 0) {
           score2 += 1;
+
           bola.init()
           pad1.init()
           pad2.init()
           bola.stop()
         }
+
         if (bola.x > canvas.width) {
           score1 += 1;
 
@@ -74,7 +107,6 @@ function animacion() {
           pad1.init()
           pad2.init()
           bola.stop()
-
         }
 
       //-- Actualizar las posiciones de los objetos móviles
@@ -88,13 +120,23 @@ function animacion() {
       //-- Comprobar si hay colisión con la raqueta izquierda
       if (bola.x >= pad1.x && bola.x <=(pad1.x+10) &&
           bola.y >= pad1.y && bola.y <=(pad1.y+100)) {
-        bola.vx = bola.vx * -1;
+
+
+          bola.vx = bola.vx * -1;
+          console.log("Choque")
+
+          pad_sound.currentTime = 0;
+          pad_sound.play();
       }
 
       //-- Comprobar si hay colisión con la raqueta derecha
       if (bola.x >= pad2.x && bola.x <=(pad2.x+10) &&
           bola.y >= pad2.y && bola.y <=(pad2.y+100)) {
-        bola.vx = bola.vx * -1;
+
+          bola.vx = bola.vx * -1;
+          console.log("Choque")
+          pad_sound.currentTime = 0;
+          pad_sound.play();
       }
 
 
@@ -153,9 +195,15 @@ const reset = document.getElementById("reset");
   window.onkeyup = (e) => {
       switch (e.key) {
         case " ":
-        bola.init()
-        bola.vx = bola.vx_ini;
-        bola.vy = bola.vy_ini;
+              //-- Reproducir sonido
+
+              //-- Llevar bola a su posicion incicial
+              bola.init()
+
+
+              //-- Darle velocidad
+              bola.vx = bola.vx_ini;
+              bola.vy = bola.vy_ini;
           break;
         case "r":
         bola.init()
@@ -177,7 +225,6 @@ const reset = document.getElementById("reset");
   }
 
   window.onkeydown = (e) => {
-
   switch (e.key) {
     case "a":
       pad1.v = pad1.v_ini;
