@@ -1,7 +1,7 @@
 console.log("Ejecutando JS...");
 
 
-const prueba = document.getElementById('pruebas');
+const prueba = document.getElementById('pluge');
 //----- Obtener elemento de video principal
 const mainv = document.getElementById('mainv');
 //----- Obtener elemento de imagen

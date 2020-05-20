@@ -17,6 +17,13 @@ const bola = new Bola(ctx)
 const pad1 = new Pad(ctx)
 const pad2 = new Pad(ctx)
 
+
+// -- Obtener la dificultad
+var level = document.getElementById('level');
+
+// -- Obtener modo de juego
+var mode = document.getElementById('mode')
+
 //-- Cambiar las coordenadas del pad 2
 pad2.x_ini = canvas.width *(8/9);
 pad2.y_ini = canvas.height/2.5;
@@ -110,8 +117,13 @@ function animacion() {
         }
 
       //-- Actualizar las posiciones de los objetos móviles
-      pad1.update()
-      pad2.update()
+      if (mode.value == "single") {
+        pad1.update()
+        pad2.y = bola.y;
+      } else {
+        pad1.update()
+        pad2.update()
+      }
 
       //-- Comprobar si la bola ha alcanzado los límites del canvas
       //-- Si es así, se cambia de signo la velocidad, para
@@ -199,11 +211,32 @@ const reset = document.getElementById("reset");
 
               //-- Llevar bola a su posicion incicial
               bola.init()
+              console.log(level.value);
+              //-- Darle velocidad en función de la dificultad
+              switch (level.value) {
+                case "easy":
+                    bola.vx = bola.vx_ini * 0.6;
+                    bola.vy = bola.vy_ini * 0.6;
+                  break;
+                case "medium":
+                    bola.vx = bola.vx_ini;
+                    bola.vy = bola.vy_ini;
+                  break;
+                case "hard":
+                    bola.vx = bola.vx_ini * 1.2;
+                    bola.vy = bola.vy_ini * 1.2;
+                  break;
+                case "legendary":
+                    bola.vx = bola.vx_ini * 1.5;
+                    bola.vy = bola.vy_ini * 1.5;
+                  break;
 
 
-              //-- Darle velocidad
-              bola.vx = bola.vx_ini;
-              bola.vy = bola.vy_ini;
+                default:
+                  bola.vx = bola.vx_ini;
+                  bola.vy = bola.vy_ini;
+              }
+
           break;
         case "r":
         bola.init()
