@@ -45,11 +45,9 @@ class Pad
     this.ctx.beginPath();
     //----- Propiedades PAD1
     //----- Posición del PAD1 respecto al canvas
-    this.ctx.strokeStyle = "#006400";
-    this.ctx.fillStyle = "#6ab150";
+    this.ctx.fillStyle = "#000000";
     this.ctx.lineWidth = 5;
     this.ctx.rect(this.x, this.y, this.width, this.height);
     this.ctx.fill();
-    this.ctx.stroke();
   }
 }

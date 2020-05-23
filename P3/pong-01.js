@@ -1,5 +1,7 @@
 console.log("Ejecutando JS...");
 
+// -- Obtener el h1
+const h1 = document.getElementById('h1')
 
 //-- Obtener el objeto canvas
 const canvas = document.getElementById("canvas");
@@ -10,6 +12,13 @@ console.log(`canvas: Anchura: ${canvas.width}, Altura: ${canvas.height}`);
 
 //-- Obtener el contexto para pintar en el canvas
 const ctx = canvas.getContext("2d");
+
+// -- tope
+const tope = "2";
+
+var img = new Image();
+img.src = "campo.jpg";
+
 
 //-- Obtener el objeto bola
 const bola = new Bola(ctx)
@@ -62,13 +71,15 @@ let estado = ESTADO.INIT;
 //
 //-- Pintar todos los objetos en el canvas
 function draw() {
-          //-- Dibujar bola solo en el estado de jugando
+        // -- Dibujar la imagen del canvas
+        ctx.drawImage(img, 0, 0, 600 , 400);
 
         bola.draw();
 
 
         pad1.draw()
         pad2.draw()
+
 
         //--------- Dibujar la red
         ctx.beginPath();
@@ -92,29 +103,35 @@ function draw() {
         ctx.fillText(score2, canvas.width/(9/5), 80);
 
 
+
+
 }
 
 //---- Bucle principal de la animación
 function animacion() {
 
-        // - ACTUALIZAR marcador
-        if (bola.x < 0) {
-          score2 += 1;
-
-          bola.init()
-          pad1.init()
-          pad2.init()
-          bola.stop()
+      // - ACTUALIZAR marcador
+      if (bola.x < 0) {
+        score2 += 1;
+        if (score2 == tope) {
+          h1.innerHTML = "OOOOOH!"
         }
 
-        if (bola.x > canvas.width) {
-          score1 += 1;
+        bola.init()
+        pad1.init()
+        pad2.init()
+        bola.stop()
+      }
 
-          bola.init()
-          pad1.init()
-          pad2.init()
-          bola.stop()
-        }
+      if (bola.x > canvas.width) {
+        score1 += 1;
+
+
+        bola.init()
+        pad1.init()
+        pad2.init()
+        bola.stop()
+      }
 
       //-- Actualizar las posiciones de los objetos móviles
       if (mode.value == "single") {
@@ -151,15 +168,30 @@ function animacion() {
           pad_sound.play();
       }
 
-
-
+      //-- Comprobar si hay colisión con la pared superior
       if (bola.y >= (canvas.height - 10)) {
-        //-- Hay colisión. Cambiar el signo de la bola
+        //-- Hay colisión. Cambiar la velocidad en y de la bola
         bola.vy = bola.vy * -1;
       }
+      //-- Comprobar si hay colisión con la pared superior
       if (bola.y < 10) {
-        //-- Hay colisión. Cambiar el signo de la bola
-      bola.vy = bola.vy * -1;
+        //-- Hay colisión. Cambiar la velocidad en y de la bola
+        bola.vy = bola.vy * -1;
+      }
+
+      // -- Comprobar colisión entre pads y extremos
+      if (pad1.y >= (canvas.height - 100)) {
+        pad1.y = canvas.height - 100;
+      }
+      if (pad1.y < 0) {
+        pad1.y = 0;
+      }
+      // -- Comprobar colisión entre pads y extremos
+      if (pad2.y >= (canvas.height - 100)) {
+        pad2.y = canvas.height - 100;
+      }
+      if (pad2.y < 0) {
+        pad2.y = 0;
       }
 
 
@@ -223,8 +255,8 @@ const reset = document.getElementById("reset");
                     bola.vy = bola.vy_ini;
                   break;
                 case "hard":
-                    bola.vx = bola.vx_ini * 1.2;
-                    bola.vy = bola.vy_ini * 1.2;
+                    bola.vx = bola.vx_ini * 1.25;
+                    bola.vy = bola.vy_ini * 1.25;
                   break;
                 case "legendary":
                     bola.vx = bola.vx_ini * 1.5;

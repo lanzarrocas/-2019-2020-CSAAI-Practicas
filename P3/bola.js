@@ -14,7 +14,7 @@ class Bola {
     this.y = 0;
 
 
-    //-- Velocidad inicial de la bola 
+    //-- Velocidad inicial de la bola
     this.vx_ini = 6;
     this.vy_ini = 3;
 
@@ -32,12 +32,11 @@ class Bola {
       //----- Dibujar la Bola
       this.ctx.beginPath();
       //----- Propiedades pelota (Posición, Tamaño, color y borde)
-      this.ctx.strokeStyle = "#006400";
       this.ctx.fillStyle = "#6ab150";
       this.ctx.lineWidth = 5;
       this.ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
       this.ctx.fill();
-      this.ctx.stroke();
+
     }
 
     init() {
