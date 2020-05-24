@@ -48,6 +48,9 @@ class Pad
     this.ctx.fillStyle = "#000000";
     this.ctx.lineWidth = 5;
     this.ctx.rect(this.x, this.y, this.width, this.height);
+    this.ctx.strokeStyle = "red";
+    this.ctx.stroke();
     this.ctx.fill();
+
   }
 }

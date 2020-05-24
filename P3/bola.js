@@ -9,6 +9,7 @@ class Bola {
     //-- Contante: Posicion inicial de la bola
     this.x_ini = canvas.width/6;
     this.y_ini = canvas.height/2;
+    this.x_ini2 = (5/6)*canvas.width;
     //-- Posicion generica de la bola
     this.x = 0;
     this.y = 0;
@@ -32,9 +33,11 @@ class Bola {
       //----- Dibujar la Bola
       this.ctx.beginPath();
       //----- Propiedades pelota (Posición, Tamaño, color y borde)
-      this.ctx.fillStyle = "#6ab150";
+      this.ctx.fillStyle = "red";
       this.ctx.lineWidth = 5;
       this.ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
+      this.ctx.strokeStyle = "black";
+      this.ctx.stroke();
       this.ctx.fill();
 
     }
@@ -42,6 +45,10 @@ class Bola {
     init() {
       //-- Inicializa la bola: A su posicion inicial
       this.x = this.x_ini;
+      this.y = this.y_ini;
+    }
+    init2 () {
+      this.x = this.x_ini2;
       this.y = this.y_ini;
     }
 

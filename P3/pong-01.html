@@ -8,23 +8,30 @@
     <script src="pong-01.js" defer></script>
     <title> PONG 2D </title>
   </head>
-  <body>
+  <body background="fondo.jpg">
+
     <p id="h1"> PONG 2D </p>
-    <canvas id="canvas" width="600" height = "400"></canvas>
-  <button id="sacar"> sacar </button>
-  <button id="stop"> ST0P </button>
+
+
+  	<div id="screen">00: 00 : 00</div>
+
+
+    <br>
+
+  <canvas id="canvas" width="600" height = "400"></canvas>
+    <p id="text"> </p>
     <select id="level">
-    <option value="easy" class="menu"> EASY </option>
-    <option value="medium" class="menu"> MEDIUM </option>
-    <option value="hard" class="menu"> HARD </option>
-    <option value="legendary" class="menu"> LEGENDARY </option>
+    <option value="easy" class="option"> EASY </option>
+    <option value="medium" class="option"> MEDIUM </option>
+    <option value="hard" class="option"> HARD </option>
+    <option value="legendary" class="option"> LEGENDARY </option>
   </select>
-  <br>
   <br>
   <select id="mode">
-    <option value="single" class="menu"> SINGLE </option>
-    <option value="multi" class="menu"> MULTI </option>
+    <option value="single" class="option"> TRAINING </option>
+    <option value="multi" class="option"> MULTI </option>
   </select>
+
 
   </body>
 </html>

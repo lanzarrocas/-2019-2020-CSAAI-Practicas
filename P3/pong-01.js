@@ -6,6 +6,8 @@ const h1 = document.getElementById('h1')
 //-- Obtener el objeto canvas
 const canvas = document.getElementById("canvas");
 
+const text = document.getElementById("text");
+
 //-- Sus dimensiones las hemos fijado en el fichero
 //-- HTML. Las imprimimos en la consola
 console.log(`canvas: Anchura: ${canvas.width}, Altura: ${canvas.height}`);
@@ -13,8 +15,8 @@ console.log(`canvas: Anchura: ${canvas.width}, Altura: ${canvas.height}`);
 //-- Obtener el contexto para pintar en el canvas
 const ctx = canvas.getContext("2d");
 
-// -- tope
-const tope = "2";
+// -- tope goles
+const max = "5";
 
 var img = new Image();
 img.src = "campo.jpg";
@@ -32,6 +34,12 @@ var level = document.getElementById('level');
 
 // -- Obtener modo de juego
 var mode = document.getElementById('mode')
+
+var startv = false;
+var crono = false;
+var acumularTime = 0;
+
+var player2 = false;
 
 //-- Cambiar las coordenadas del pad 2
 pad2.x_ini = canvas.width *(8/9);
@@ -51,14 +59,16 @@ const goal_sound = new Audio("gol.mp3");
 //-- Estados del juego
 const ESTADO = {
   INIT: 0,
-  SAQUE: 1,
-  JUGANDO: 2,
+  FIN: 1,
 }
 
 //-- Variable de estado
 //-- Arrancamos desde el estado inicial
 let estado = ESTADO.INIT;
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 // -- Sonido de gol
  //function goal () {
@@ -71,53 +81,71 @@ let estado = ESTADO.INIT;
 //
 //-- Pintar todos los objetos en el canvas
 function draw() {
+
         // -- Dibujar la imagen del canvas
         ctx.drawImage(img, 0, 0, 600 , 400);
 
-        bola.draw();
+        //----- Dibujar Extremos del tablero
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.rect(0,0,5,canvas.height);
+        ctx.fill();
 
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.rect(canvas.width - 5,0,5,canvas.height);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.rect(0,canvas.height - 5 ,canvas.width,5);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.rect(0,0,canvas.width,5);
+        ctx.fill();
+
+        bola.draw();
 
         pad1.draw()
         pad2.draw()
-
-
-        //--------- Dibujar la red
-        ctx.beginPath();
-        //-- Estilo de la linea: discontinua
-        //-- Trazos de 10 pixeles, y 10 de separacion
-        ctx.setLineDash([5, 5]);
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 2;
-        //-- Punto superior de la linea. Su coordenada x está en la mitad
-        //-- del canvas
-        ctx.moveTo(canvas.width/2, 0);
-
-        //-- Dibujar hasta el punto inferior
-        ctx.lineTo(canvas.width/2, canvas.height);
-        ctx.stroke();
 
         //------ Dibujar el tanteo
         ctx.font = "100px Arial";
         ctx.fillStyle = "white";
         ctx.fillText(score1, canvas.width/3, 80);
         ctx.fillText(score2, canvas.width/(9/5), 80);
-
-
-
-
 }
 
 //---- Bucle principal de la animación
 function animacion() {
 
+      if (estado==ESTADO.INIT) {
+        h1.innerHTML = "WELCOME TO PONG 2D"
+        text.innerHTML = " PLAYER 1 [W-S] , PLAYER 2 [O-L] -> [L- R]"
+      }
+
+      if (estado==ESTADO.FIN) {
+        if (score1 > score2) {
+          h1.innerHTML = "PLAYER1 WINS"
+        } else {
+          h1.innerHTML = "PLAYER2 WINS"
+        }
+        stop();
+        text.innerHTML = " [r] ---> RESTART "
+      }
+
       // - ACTUALIZAR marcador
       if (bola.x < 0) {
         score2 += 1;
-        if (score2 == tope) {
-          h1.innerHTML = "OOOOOH!"
+        h1.innerHTML = "GOOOL!"
+        stop();
+        if (score2 == max) {
+          estado = ESTADO.FIN;
         }
-
-        bola.init()
+        player2 = true;
+        bola.init2()
         pad1.init()
         pad2.init()
         bola.stop()
@@ -125,8 +153,11 @@ function animacion() {
 
       if (bola.x > canvas.width) {
         score1 += 1;
-
-
+        stop();
+      if (score1 == max) {
+        estado = ESTADO.FIN;
+        }
+        player2 = false;
         bola.init()
         pad1.init()
         pad2.init()
@@ -136,11 +167,13 @@ function animacion() {
       //-- Actualizar las posiciones de los objetos móviles
       if (mode.value == "single") {
         pad1.update()
-        pad2.y = bola.y;
+        pad2.y = bola.y - pad2.height/2;
       } else {
         pad1.update()
         pad2.update()
       }
+
+
 
       //-- Comprobar si la bola ha alcanzado los límites del canvas
       //-- Si es así, se cambia de signo la velocidad, para
@@ -148,25 +181,57 @@ function animacion() {
 
       //-- Comprobar si hay colisión con la raqueta izquierda
       if (bola.x >= pad1.x && bola.x <=(pad1.x+10) &&
-          bola.y >= pad1.y && bola.y <=(pad1.y+100)) {
+              bola.y >= pad1.y && bola.y <=(pad1.y+50)) {
+                if (bola.vy > 0) {
+                  bola.vy = bola.vy*(-1);
+                } else if (bola.vy==0) {
+                  bola.vy = getRandomInt(0.5,2)* bola.vy_ini;
+              }
+              bola.vx = bola.vx * -1;
+              console.log("Choque")
+              pad_sound.currentTime = 0;
+              pad_sound.play();
+      }
+      if (bola.x >= pad1.x && bola.x <=(pad1.x+10) &&
+              bola.y >= (pad1.y + 50) && bola.y <=(pad1.y+100)) {
+              if (bola.vy < 0) {
+                bola.vy = bola.vy*(-1);
+              } else if (bola.vy==0) {
+                bola.vy = getRandomInt(0.5,5) * bola.vy_ini;
+            }
+              bola.vx = bola.vx * -1;
+              console.log("Choque")
 
-
-          bola.vx = bola.vx * -1;
-          console.log("Choque")
-
-          pad_sound.currentTime = 0;
-          pad_sound.play();
+             pad_sound.currentTime = 0;
+             pad_sound.play();
       }
 
-      //-- Comprobar si hay colisión con la raqueta derecha
       if (bola.x >= pad2.x && bola.x <=(pad2.x+10) &&
-          bola.y >= pad2.y && bola.y <=(pad2.y+100)) {
-
-          bola.vx = bola.vx * -1;
-          console.log("Choque")
-          pad_sound.currentTime = 0;
-          pad_sound.play();
+              bola.y >= pad2.y && bola.y <=(pad2.y+50)) {
+                if (bola.vy > 0) {
+                  bola.vy = bola.vy*(-1);
+                } else if (bola.vy==0) {
+                  bola.vy = getRandomInt(0.5,2)* bola.vy_ini;
+              }
+              bola.vx = bola.vx * -1;
+              console.log("Choque")
+              pad_sound.currentTime = 0;
+              pad_sound.play();
       }
+      if (bola.x >= pad2.x && bola.x <=(pad2.x+10) &&
+              bola.y >= (pad2.y + 50) && bola.y <=(pad2.y+100)) {
+              if (bola.vy < 0) {
+                bola.vy = bola.vy*(-1);
+              } else if (bola.vy==0) {
+                bola.vy = getRandomInt(0.5,5) * bola.vy_ini;
+            }
+              bola.vx = bola.vx * -1;
+              console.log("Choque")
+
+             pad_sound.currentTime = 0;
+             pad_sound.play();
+      }
+
 
       //-- Comprobar si hay colisión con la pared superior
       if (bola.y >= (canvas.height - 10)) {
@@ -194,8 +259,6 @@ function animacion() {
         pad2.y = 0;
       }
 
-
-
       bola.update()
 
       //-- Borrar la pantalla
@@ -219,51 +282,49 @@ setInterval(()=>{
   animacion();
 },16);
 
-//-- Obtener botones del html
-const sacar = document.getElementById("sacar");
-const reset = document.getElementById("reset");
-
-
-  //-- Sacar con botón sacar
-  sacar.onclick = () => {
-    //-- Incrementar la posicion x de la bola
-    bola.x = canvas.width/6;
-    bola.y = canvas.height/2;
-    bola.vx = 6;
-    bola.vy = 6;
-    console.log("Saque!");
-  }
-
 
   //-- Sacar con tecla "space"
   window.onkeyup = (e) => {
       switch (e.key) {
         case " ":
+              if (estado == ESTADO.FIN) {
+                reset();
+                return;
+              }
+              if (startv==true) {
+                resume();
+              } else if (crono==false) {
+                start();
+              }
+
               //-- Reproducir sonido
 
               //-- Llevar bola a su posicion incicial
-              bola.init()
-              console.log(level.value);
+              //-- en función de quien haya marcado
+              if (player2) {
+                bola.init2()
+              } else {
+                  bola.init()
+              }
+
               //-- Darle velocidad en función de la dificultad
               switch (level.value) {
                 case "easy":
                     bola.vx = bola.vx_ini * 0.6;
-                    bola.vy = bola.vy_ini * 0.6;
+                    bola.vy = getRandomInt(-2,2)* bola.vy_ini * 0.6;
                   break;
                 case "medium":
                     bola.vx = bola.vx_ini;
-                    bola.vy = bola.vy_ini;
+                    bola.vy = getRandomInt(-2,2) * bola.vy_ini;
                   break;
                 case "hard":
-                    bola.vx = bola.vx_ini * 1.25;
-                    bola.vy = bola.vy_ini * 1.25;
+                    bola.vx =  -bola.vx_ini * 1.25;
+                    bola.vy = getRandomInt(-2,2)* -bola.vy_ini * 1.25;
                   break;
                 case "legendary":
-                    bola.vx = bola.vx_ini * 1.5;
-                    bola.vy = bola.vy_ini * 1.5;
+                    bola.vx =   -bola.vx_ini * 1.5;
+                    bola.vy = getRandomInt(-2,2)* -bola.vy_ini * 1.5;
                   break;
-
-
                 default:
                   bola.vx = bola.vx_ini;
                   bola.vy = bola.vy_ini;
@@ -271,6 +332,14 @@ const reset = document.getElementById("reset");
 
           break;
         case "r":
+        score1=0;
+        score2=0;
+        player2 = false;
+        text.innerHTML = " "
+        estado = ESTADO.INIT;
+        score1 = 0;
+        score2 = 0;
+        reset()
         bola.init()
         bola.stop()
         case "a":
@@ -305,3 +374,61 @@ const reset = document.getElementById("reset");
       break;
   }
 }
+
+
+
+
+window.onload = function() {
+   pantalla = document.getElementById("screen");
+}
+
+function start () {
+         if (crono == false) {
+            timeInicial = new Date();
+            control = setInterval(cronometro,10);
+            crono = true;
+            startv = true;
+            console.log(crono);
+            }
+         }
+function cronometro () {
+         timeActual = new Date();
+         acumularTime = timeActual - timeInicial;
+         acumularTime2 = new Date();
+         acumularTime2.setTime(acumularTime);
+         ss = acumularTime2.getSeconds();
+         mm = acumularTime2.getMinutes();
+
+         if (ss < 10) {ss = "0"+ss;}
+         if (mm < 10) {mm = "0"+mm;}
+
+         pantalla.innerHTML ="00 : " +mm+" : "+ss;
+         }
+
+function stop () {
+         if (crono == true) {
+            clearInterval(control);
+            crono = false;
+            }
+         }
+
+function resume () {
+         if (crono == false) {
+            timeActu2 = new Date();
+            timeActu2 = timeActu2.getTime();
+            acumularResume = timeActu2-acumularTime;
+
+            timeInicial.setTime(acumularResume);
+            control = setInterval(cronometro,10);
+            crono = true;
+            }
+         }
+
+function reset () {
+         if (crono == true) {
+            clearInterval(control);
+            crono = false;
+            }
+         acumularTime = 0;
+         pantalla.innerHTML = "00 : 00 : 00";
+         }
