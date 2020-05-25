@@ -61,7 +61,6 @@ const normal_mode = document.getElementById('normal');
 const bucle = document.getElementById('bucle');
 
 bucle.onclick = () => {
-  console.log('Modo bucle');
   normal_mode.style.border = null;
   bucle.style.border = '4px solid #00FF00';
   fin_bucle = mainv.currentTime + loop_time;
@@ -71,7 +70,7 @@ bucle.onclick = () => {
 setInterval(()=>{
   if(loop){
     if (mainv.currentTime > fin_bucle){
-        mainv.currentTime = mainv.currentTime - loop_time;
+      mainv.currentTime = mainv.currentTime - loop_time;
     }
   }
 },100);

@@ -3,35 +3,37 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="pong.css">
-    <script src="pad.js"></script>
-    <script src="bola.js"></script>
-    <script src="pong-01.js" defer></script>
-    <title> PONG 2D </title>
+    <script src="javascript/pad.js"></script>
+    <script src="javascript/bola.js"></script>
+    <script src="javascript/pong.js" defer></script>
+    <title> PONG 2D Pablo Esteban</title>
   </head>
-  <body background="fondo.jpg">
+
+  <body background="img/fondo.jpg">
 
     <p id="h1"> PONG 2D </p>
 
-
   	<div id="screen">00: 00 : 00</div>
-
 
     <br>
 
-  <canvas id="canvas" width="600" height = "400"></canvas>
+    <canvas id="canvas" width="600" height = "400"></canvas>
+
     <p id="text"> </p>
+
     <select id="level">
     <option value="easy" class="option"> EASY </option>
     <option value="medium" class="option"> MEDIUM </option>
     <option value="hard" class="option"> HARD </option>
     <option value="legendary" class="option"> LEGENDARY </option>
   </select>
+
   <br>
-  <select id="mode">
-    <option value="single" class="option"> TRAINING </option>
-    <option value="multi" class="option"> MULTI </option>
-  </select>
 
-
+    <select id="mode">
+      <option value="single" class="option"> TRAINING </option>
+      <option value="multi" class="option"> MULTI </option>
+    </select>
+  </div>
   </body>
 </html>

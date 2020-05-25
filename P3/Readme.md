@@ -24,3 +24,58 @@ añadiendo las siguientes "Mejoras" (Opcionales):
   --> Añadir un cronómetro de la duración del juego
 
   Las instrucciones y los modos de juego se detallan al inicio del juego.
+
+
+  if (bola.x >= pad1.x && bola.x <=(pad1.x+10) &&
+          bola.y >= pad1.y && bola.y <=(pad1.y+100)) {
+            if (bola.vy > 0) {
+              bola.vy = bola.vy*(-1);
+            } else if (bola.vy==0) {
+              bola.vy = getRandomInt(0.5,2)* bola.vy_ini;
+          }
+          bola.vx = bola.vx * -1;
+          console.log("Choque pad1")
+          pad_sound.currentTime = 0;
+          pad_sound.play();
+  }
+  if (bola.x >= pad1.x && bola.x <=(pad1.x+10) &&
+          bola.y >= (pad1.y + 50) && bola.y <=(pad1.y+100)) {
+          if (bola.vy < 0) {
+            bola.vy = bola.vy*(-1);
+          } else if (bola.vy==0) {
+            bola.vy = getRandomInt(0.5,5) * bola.vy_ini;
+        }
+          bola.vx = bola.vx * -1;
+          console.log("Choque")
+
+         pad_sound.currentTime = 0;
+         pad_sound.play();
+  }
+
+  if (bola.x >= pad2.x && bola.x <=(pad2.x+10) &&
+          bola.y >= pad2.y && bola.y <=(pad2.y+50)) {
+            if (bola.vy > 0) {
+              bola.vy = bola.vy*(-1);
+            } else if (bola.vy==0) {
+              bola.vy = getRandomInt(0.5,2)* bola.vy_ini;
+          }
+          bola.vx = bola.vx * -1;
+          console.log("Choque pad2 1")
+          pad_sound.currentTime = 0;
+          pad_sound.play();
+  }
+
+  if (bola.x >= pad2.x && bola.x <=(pad2.x+10) &&
+          bola.y >= (pad2.y + 50) && bola.y <=(pad2.y+100)) {
+          if (bola.vy < 0) {
+            bola.vy = bola.vy*(-1);
+          } else if (bola.vy==0) {
+            bola.vy = getRandomInt(0.5,5) * bola.vy_ini;
+          }
+          bola.vx = bola.vx * -1;
+          console.log("Choque pad2 2")
+          console.log("Velocidad vx = " + bola.vx)
+
+         pad_sound.currentTime = 0;
+         pad_sound.play();
+  }

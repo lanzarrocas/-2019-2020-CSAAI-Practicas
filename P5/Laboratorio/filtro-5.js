@@ -5,10 +5,10 @@ const canvas = document.getElementById('canvas');
 const img = document.getElementById('imagesrc');
 const ctx = canvas.getContext('2d');
 
-//-- Acceso al deslizador
-const deslizador = document.getElementById('deslizador');
+//-- Acceso al desliza_r
+const desliza_r = document.getElementById('desliza_r');
 
-//-- Valor del deslizador
+//-- Valor del desliza_r
 const range_value = document.getElementById('range_value');
 
 //-- Función de retrollamada de imagen cargada
@@ -30,10 +30,10 @@ img.onload = function () {
 };
 
 
-//-- Funcion de retrollamada del deslizador
-deslizador.oninput = () => {
-  //-- Mostrar el nuevo valor del deslizador
-  range_value.innerHTML = deslizador.value;
+//-- Funcion de retrollamada del desliza_r
+desliza_r.oninput = () => {
+  //-- Mostrar el nuevo valor del desliza_r
+  range_value.innerHTML = desliza_r.value;
 
   //-- Situar la imagen original en el canvas
   //-- No se han hecho manipulaciones todavia
@@ -46,7 +46,7 @@ deslizador.oninput = () => {
   let data = imgData.data
 
   //-- Obtener el umbral de rojo del desliador
-  umbral = deslizador.value
+  umbral = desliza_r.value
 
   //-- Filtrar la imagen según el nuevo umbral
   for (let i = 0; i < data.length; i+=4) {

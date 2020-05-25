@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <title>PRACTICA 5</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="filtros.css">
+    <script src="filtros.js" defer> </script>
+  </head>
+
+  <body>
+
+  <p>Imagen original</p>
+  <img id="img" src="imagenes/i1.jpg" >
+  <p>Imagen manipulada</p>
+  <canvas id="canvas"></canvas>
+
+  <p>Establece el umbral de rojo(R):</p>
+  <input type="range" id="desliza_r" min="0" max="255" value="255"/>
+  <p id="r_value">255</p>
+
+  <p>Establece el umbral de verde(G):</p>
+  <input type="range" id="desliza_g" min="0" max="255" value="255"/>
+  <p id="g_value">255</p>
+
+  <p>Establece el umbral de azul(B):</p>
+  <input type="range" id="desliza_b" min="0" max="255" value="255"/>
+  <p id="b_value">255</p>
+
+  <p>Establece el umbral de transparencia(T):</p>
+  <input type="range" id="desliza_t" min="0" max="255" value="255"/>
+  <p id="t_value">255</p>
+
+  <p>Si lo desea cambie la imagen</p>
+  <select id="selector_img">
+  <option value="i1"> i1 </option>
+  <option value="i2"> i2 </option>
+  <option value="i3"> i3 </option>
+
+  </select>
+  </body>
+</html>

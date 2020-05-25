@@ -10,26 +10,27 @@
 
     <p> Realizador de TV </p>
     <video loop id="mainv" >
-
     </video>
+
     <br>
-    <div class="videos">
+    <div >
+
+    <div class="padre">
     <video loop id="v1" class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente1.mp4" > </video>
     <video loop id="v2"  class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente2.mp4"> </video>
     <video loop id="v3" class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente3.mp4"> </video>
     <img id="pluge" onclick="pruebas(this)" src="pruebas.png" >
     <br>
     </div>
-    <br>
 
-    <button class="boton" onclick= "main(v1)">SEL</button>
-    <button class="boton" onclick="main(v2)">SEL</button>
-    <button class="boton" onclick="main(v3)">SEL</button>
-    <button class="boton" onclick="pruebas(pluge)">SEL</button>
     <br>
-    <button id="bucle" value="bucle"> BUCLE </button>
-    <button onclick="normal(this)" id="normal" value="normal"> NORMAL </button>
-
+    <button class="boton" onclick= "main(v1)" style='width:100px; height:50px; margin-left: 55px'>SEL</button>
+    <button class="boton" onclick="main(v2)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
+    <button class="boton" onclick="main(v3)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
+    <button class="boton" onclick="pruebas(pluge)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
+    <button id="bucle" value="bucle" style='width:100px; height:50px; margin-left: 55px'> BUCLE </button>
+    <button onclick="normal(this)" id="normal" value="normal" style='width:100px; height:50px; margin-left: 55px'> NORMAL </button>
+    </div>
 
   </body>
 </html>
