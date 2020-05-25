@@ -1,7 +1,41 @@
 #title {
-color: rgba(0,0,0,.6);
-background: #6e6e6e;
-text-shadow: 3px 2px 3px rgba(255,255,255,.2);
-font-family: "Comic Sans MS", cursive, sans-serif;
-text-align: center;
+    color: rgba(0,0,0,.6);
+    background: #6e6e6e;
+    text-shadow: 3px 2px 3px rgba(255,255,255,.2);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+    font-size: 50px;
+}
+
+#uno, #dos {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-align: center
+}
+.caja {
+    -webkit-box-shadow: 5px 6px 25px 7px #000000;
+    box-shadow: 5px 6px 25px 7px #000000;
+    background: #12A49D;
+    }
+    body#tinymce {
+    background: #FFFFFF
+    font-family: Georgia, serif;
+    font-size: 35px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    }
 }
