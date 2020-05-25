@@ -18,6 +18,7 @@ const ctx = canvas.getContext("2d");
 // -- tope goles
 const max = "5";
 
+// -- Obener imagen de fondo
 var img = new Image();
 img.src = "img/campo.jpg";
 

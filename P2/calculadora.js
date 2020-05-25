@@ -5,10 +5,8 @@ var display = document.getElementById('display');
 var ac = document.getElementById('ac');
 var igual = document.getElementById('igual');
 
-//-- Crear objeto gui, con los elementos de la interfaz gráfica
-//-- Al tenerlo agrupado podemos pasarlo como parámetro o asignárselo
-//-- a otro objeto
-
+// -- Obtener sonido tecla
+var sound = new Audio("sound.mp3")
 
 //-- Crear un array con todos los elementos
 //-- de la clase digito
@@ -18,7 +16,11 @@ num = document.getElementsByClassName("num")
 //-- de la clase operacion
 op = document.getElementsByClassName("op")
 
-
+// -- Reproducir el sonido desde el principio
+function sonido () {
+  sound.currentTime = 0;
+  sound.play()
+}
 
 //-- Bucle que itera sobre todos
 //--los elementos de la clase num
@@ -35,17 +37,23 @@ for (i=0; i< num.length; i++) {
 // -- y cuando se hace clik los muestra en el display
 for (i=0; i< op.length; i++) {
   op[i].onclick = (ev) => {
-    display.innerHTML += ev.target.value;
+    if (display.innerHTML != "" || ev.target.value =="-") {
+      display.innerHTML += ev.target.value;
+    }
   }
 }
 
 // -- IGUAL
 igual.onclick = () => {
-  display.innerHTML = eval(display.innerHTML)
+  if (display.innerHTML != "") {
+    sonido()
+    display.innerHTML = eval(display.innerHTML)
+  }
 }
 
 // -- AC - Poner a cero el display
 ac.onclick = () => {
+  sonido()
   display.innerHTML = "";
 }
 

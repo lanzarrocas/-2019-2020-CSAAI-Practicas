@@ -18,8 +18,14 @@ body{
     background-color: #ABF5E3;
 }
 #igual, #ac {
-  margin-left: 35px;
   background-color: #07248A;
 }
 
-.calculadora [type=button] {font-family:fantasy; font-size: 20px ;width: 70px; background-color: lightblue; height: 40px}
+.calculadora [type=button] {
+  font-family: fantasy;
+  font-size: 20px;
+  width: 70px;
+  height: 40px
+  background-color: lightblue;
+  font
+}
