@@ -16,3 +16,9 @@ modo bucle mediante el botón "BUCLE" el mecanismo será el
 mismo pero la Reproducción estará limitada por el tiempo que
 hayamos definido en la  variable "loop_time".
 Si seleccionamos "NORMAL" volveremos al estado inicial.
+
+Se ha programado para que se visualice automáticamente un vídeo
+al visualizar "video.html" pero:
+La reproducción automática solo está permitida cuando ha sido
+aprobada por  el usuario, el sitio está activado por el usuario,
+o los archivos multimedia está silenciados.

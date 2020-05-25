@@ -6,31 +6,32 @@
     <link rel="stylesheet" href="video.css">
     <script src="video.js" defer></script>
   </head>
-  <body background="fondo.jpg">
 
-    <p> Realizador de TV </p>
-    <video loop id="mainv" >
+  <body background="imagenes/fondo.png">
+
+    <div id="title">REALIZADOR TV</div>
+
+    <video id="mainv" autoplay>
+    <source src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente3.mp4" type="video/mp4">
     </video>
 
     <br>
-    <div >
 
     <div class="padre">
     <video loop id="v1" class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente1.mp4" > </video>
     <video loop id="v2"  class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente2.mp4"> </video>
     <video loop id="v3" class="v" onclick="main(this)" src="https://gsyc.urjc.es/jmplaza/csaai/realizador-fuente3.mp4"> </video>
-    <img id="pluge" onclick="pruebas(this)" src="pruebas.png" >
+    <img id="pluge" onclick="pruebas(this)" src="imagenes/pruebas.png" >
     <br>
     </div>
 
     <br>
-    <button class="boton" onclick= "main(v1)" style='width:100px; height:50px; margin-left: 55px'>SEL</button>
-    <button class="boton" onclick="main(v2)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
-    <button class="boton" onclick="main(v3)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
-    <button class="boton" onclick="pruebas(pluge)" style='width:100px; height:50px; margin-left: 100px'>SEL</button>
-    <button id="bucle" value="bucle" style='width:100px; height:50px; margin-left: 55px'> BUCLE </button>
-    <button onclick="normal(this)" id="normal" value="normal" style='width:100px; height:50px; margin-left: 55px'> NORMAL </button>
-    </div>
+    <a href="#" class="myButton" onclick= "main(v1)" style='margin-left: 40px'>SEL 1</a>
+    <a href="#" class="myButton" onclick="main(v2)" style='margin-left: 75px'>SEL 2</a>
+    <a href="#" class="myButton" onclick="main(v3)" style='margin-left: 75px'>SEL 3</a>
+    <a href="#" class="myButton" onclick="pruebas(pluge)" style='margin-left: 75px'>PLUGE</a>
+    <a href="#" id="normal" value="normal" class="myButton" onclick="normal(this)" style='margin-left: 100px; background:#EF1613;'>NORMAL</a>
+    <a href="#" id="bucle" value="bucle" class="myButton"  style='margin-left: 50px; background:#EF1613;'>LOOP</a>
 
   </body>
 </html>
