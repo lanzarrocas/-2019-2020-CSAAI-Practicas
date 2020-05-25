@@ -3,22 +3,23 @@ body{
   background-image: url(textura.jpg);
 }
 
-div{
+.calculadora {
 
- margin: 0 auto;
- padding: 40px;
- border-radius: 15px;
-
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 40px;
+    border: 10px black ridge; width: 300px; text-align: center;
+    background-color: black; align: center;
 }
 
+#display {
+    width: 200px; border: 2px black solid; text-align: right;
+    position: relative; left: 40px;  padding: 15px 20px;
+    background-color: #ABF5E3;
+}
+#igual, #ac {
+  margin-left: 35px;
+  background-color: #07248A;
+}
 
-.calculadora { border: 10px black ridge; width: 300px;text-align: center;
-               background-color: red; align: center;}
-
-/*pantalla de visualización: bordes, posición, color de fondo, estilo letra.*/
-#Pantalla { width: 200px; border: 2px black solid; text-align: right;
-                 position: relative; left: 40px;  padding: 15px 20px;
-                 background-color: lightblue;}
-
-.calculadora [type=button] {font-family:fantasy;;font-size: 20px ;width: 70px; background-color: lightgreen; height: 40px}
-.calculadora button.especial{ font-style: italic; color: black; width: 80px; background-color: lightyellow;}
+.calculadora [type=button] {font-family:fantasy; font-size: 20px ;width: 70px; background-color: lightblue; height: 40px}
