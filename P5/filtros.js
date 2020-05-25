@@ -94,10 +94,53 @@ function rgbt () {
       data[i+3] = umbral_t;
     }
   }
-
-
   //-- Poner la imagen modificada en el canvas
   ctx.putImageData(imgData, 0, 0);
 }
 
+function negativo () {
+  ctx.drawImage(img, 0,0);
+
+  //-- Obtener la imagen del canvas en pixeles
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  //-- Obtener el array con todos los píxeles
+  let data = imgData.data
+
+  for (let i = 0; i < data.length; i+=4) {
+    red = data[i];
+    green = data[i+1];
+    blue = data[i+2];
+    data[i] = 255 - red;
+    data[i+1] = 255 -blue;
+    data[i+2] = 255 -data[i+2];
+
+  }
+  //-- Poner la imagen modificada en el canvas
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function ruido () {
+  ctx.drawImage(img, 0,0);
+
+  //-- Obtener la imagen del canvas en pixeles
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  //-- Obtener el array con todos los píxeles
+  let data = imgData.data
+  ///--Introducimos pixeles blancos y negros cada 3 y 5 pixeles respectivamente
+  for (let i = 0; i < data.length; i+=4) {
+    red = data[3*i];
+    green = data[3*i+1];
+    blue = data[3*i+2];
+    data[5*i] = 0;
+    data[5*i+1] = 0;
+    data[5*i+2] = 0;
+    data[3*i] = 255;
+    data[3*i+1] = 255;
+    data[3*i+2] = 255;
+  }
+  //-- Poner la imagen modificada en el canvas
+  ctx.putImageData(imgData, 0, 0);
+}
 console.log("Fin...");

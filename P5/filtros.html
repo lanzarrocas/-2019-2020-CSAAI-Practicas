@@ -3,41 +3,83 @@
   <head>
     <title>PRACTICA 5</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="filtros.css">
-    <script src="filtros.js" defer> </script>
+  <script src="filtros.js" defer> </script>
   </head>
 
-  <body>
-
-  <p>Imagen original</p>
+  <body background="fondo.jpg">
+  <div style="position: absolute; left:40px; ">
+  <p style="color: white">Imagen original</p>
   <img id="img" src="imagenes/i1.jpg" >
-  <p>Imagen manipulada</p>
+  <p style="color: white">Imagen manipulada</p>
   <canvas id="canvas"></canvas>
+  </div>
 
-  <div class="rgbt">
-  <p>Establece el umbral de rojo(R):</p>
+  <div class="rgbt" style="position: absolute;
+  top: 20px;
+  left: 800px;">
+  <p style="color: white">Establece el umbral de rojo(R):</p>
   <input oninput="rgbt()" type="range" id="desliza_r" min="0" max="255" value="255"/>
-  <p id="r_value">255</p>
+  <p style="color: white" id="r_value">255</p>
 
-  <p>Establece el umbral de verde(G):</p>
+  <p style="color: white">Establece el umbral de verde(G):</p>
   <input  oninput="rgbt()" type="range" id="desliza_g" min="0" max="255" value="255"/>
-  <p id="g_value">255</p>
+  <p style="color: white" id="g_value">255</p>
 
-  <p>Establece el umbral de azul(B):</p>
+  <p style="color: white">Establece el umbral de azul(B):</p>
   <input oninput="rgbt()" type="range" id="desliza_b" min="0" max="255" value="255"/>
-  <p id="b_value">255</p>
+  <p style="color: white" id="b_value">255</p>
 
-  <p>Establece el umbral de transparencia(T):</p>
+  <p style="color: white" >Establece el umbral de transparencia(T):</p>
   <input  oninput="rgbt()" type="range" id="desliza_t" min="0" max="255" value="255"/>
-  <p id="t_value">255</p>
-</div>
+  <p style="color: white" id="t_value">255</p>
 
-  <p>Si lo desea cambie la imagen</p>
-  <select id="selector_img">
+  <a href="#" class="myButton" onclick="negativo()"
+  style=" background:linear-gradient(to bottom, #44c767 5%, #ff0000 100%);
+        	background-color:#EBF50E;
+        	border-radius:42px;
+        	border:5px solid #18ab29;
+        	display:inline-block;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-family:Arial;
+        	font-size:28px;
+        	padding:11px 23px;
+        	text-decoration:none;
+        	text-shadow:0px 1px 0px #2f6627;"> NEGATIVO </a>
+  <br>
+  <br>
+  <a href="#" class="myButton" onclick="ruido()"
+  style=" background:linear-gradient(to bottom, #ff0000 5%, #5cbf2a 100%);
+        	background-color:#EBF50E;
+        	border-radius:42px;
+        	border:5px solid #18ab29;
+        	display:inline-block;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-family:Arial;
+        	font-size:28px;
+        	padding:11px 23px;
+        	text-decoration:none;
+        	text-shadow:0px 1px 0px #2f6627;"> RUIDO </a>
+  <br>
+  <p style="color: white" >Si lo desea cambie la imagen</p>
+  <select id="selector_img"
+  style=" background:linear-gradient(to bottom, #000000 5%, #5cbf2a 100%);
+        	background-color:#EBF50E;
+        	border-radius:42px;
+        	border:5px solid #18ab29;
+        	display:inline-block;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-family:Arial;
+        	font-size:28px;
+        	padding:11px 23px;
+        	text-decoration:none;
+        	text-shadow:0px 1px 0px #2f6627;">
   <option value="i1"> i1 </option>
   <option value="i2"> i2 </option>
   <option value="i3"> i3 </option>
-
   </select>
+  </div>
   </body>
 </html>
