@@ -14,21 +14,23 @@
   <p>Imagen manipulada</p>
   <canvas id="canvas"></canvas>
 
+  <div class="rgbt">
   <p>Establece el umbral de rojo(R):</p>
-  <input type="range" id="desliza_r" min="0" max="255" value="255"/>
+  <input oninput="rgbt()" type="range" id="desliza_r" min="0" max="255" value="255"/>
   <p id="r_value">255</p>
 
   <p>Establece el umbral de verde(G):</p>
-  <input type="range" id="desliza_g" min="0" max="255" value="255"/>
+  <input  oninput="rgbt()" type="range" id="desliza_g" min="0" max="255" value="255"/>
   <p id="g_value">255</p>
 
   <p>Establece el umbral de azul(B):</p>
-  <input type="range" id="desliza_b" min="0" max="255" value="255"/>
+  <input oninput="rgbt()" type="range" id="desliza_b" min="0" max="255" value="255"/>
   <p id="b_value">255</p>
 
   <p>Establece el umbral de transparencia(T):</p>
-  <input type="range" id="desliza_t" min="0" max="255" value="255"/>
+  <input  oninput="rgbt()" type="range" id="desliza_t" min="0" max="255" value="255"/>
   <p id="t_value">255</p>
+</div>
 
   <p>Si lo desea cambie la imagen</p>
   <select id="selector_img">
